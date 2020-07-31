@@ -18,8 +18,6 @@ public static void main(String[] args)                              //declaratio
  //tbl_account(acc_no,name,age,address,opening_balance_ammount)
    
    System.out.println("**************************BANK MANAGEMENT SYSTEM******************************");
-   while(true)
-   {
    System.out.println("1.create account.");
    System.out.println("2.Transaction.");
    System.out.println("3.printData");
@@ -73,7 +71,7 @@ public static void main(String[] args)                              //declaratio
    //prints the double quoted text on output console screen
    System.out.println("Goodbye!");
    }
-   }
+   
 }   //end of the main() function
 
 //saveDetails() function defination starts here
@@ -178,29 +176,18 @@ try
    System.out.println("Creating statement...");
    stmt5 = conn5.createStatement();
    String sql5="SELECT accno,name,age,address,opbalam,date,trantype,amount from tbl_account inner join tbl_transaction on tbl_account.accno=tbl_transaction";
-   ResultSet rs = stmt5.executeQuery(sql5);
+   ResultSet rs = stmt5.executeQuery(sql5);//here resultset is used fetch data from database
    try
    {
-      //create new file named as jdbcfile
-      File obj = new File("jdbcfile.txt");
-      //if file already created then it prints file already exists otherwise prints file created:jdbcfile
-      if (obj.createNewFile()) 
-      {
-        System.out.println("File created: " + obj.getName());
-      } 
-      else
-      {
-        System.out.println("File already exists.");
-      }
-      rs.next();
-      Clob c=rs.getClob(2);  
-      Reader r=c.getCharacterStream();              
-      FileWriter fw=new FileWriter("jdbcfile.txt");  
-      int i;  
-      while((i=r.read())!=-1)  
-      fw.write((char)i);  
-      fw.close();  
-      System.out.println("Successfully wrote to the file.");
+       //create StringBuffer object
+       StringBuffer sbf = new StringBuffer();
+       sbf.append("Name:" +rs.getString("name"));
+       sbf.append("Account" +rs.getInt("accno"));
+       sbf.append("Address" +rs.getString("address"));
+       sbf.append("Balance"+rs.getInt("balance"));
+       sbf.append("Transaction:" +rs.getString("trantype"));
+       sbf.append(+rs.getString("date")+" "+rs.getString("trantype")+" "+rs.getInt("amount")+" "+rs.getInt("balance"));
+       System.out.println("Successfully wrote to the file.");
    } 
    //handles file operation errors
    catch (Exception e) 
@@ -244,14 +231,7 @@ public static void deleteAccount()
  {
      e.printStackTrace();
  }
- //if(jdbcfile.delete()) 
-        //{ 
-           //System.out.println("File deleted successfully"); 
-       // } 
-       // else
-        //{ 
-           // System.out.println("Failed to delete the file"); 
-       // } 
+ 
 }
 //end of deleteAccount() function 
 }//end of class
