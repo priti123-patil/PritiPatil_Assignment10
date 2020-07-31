@@ -221,6 +221,7 @@ public static void deleteAccount()
  String sql4="DELETE FROM `tbl_transaction` WHERE accno=no";
  //execute query
  stmt4.executeUpdate(sql4);
+ sbf.delete(0,(sbf.size)-1);//delete the file
  }
  //handles jdbc errors
  catch(SQLException se)
