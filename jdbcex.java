@@ -98,8 +98,7 @@ public class jdbcex //declaration of jdbcex class
           Statement stmt = null;
             stmt = connection.createStatement();
             System.out.println("Inserting records into the table...");
-            String sql = "INSERT INTO `tbl_account` (`name`, `age`, `address`)  VALUES('" + name + "','"
-                    + age + "','" + address + "')";
+            String sql = "INSERT INTO `tbl_account` (`name`, `age`, `address`,`bal`)  VALUES('" + name + "','" + age + "','" + address + "','"+opbalam+"')";
             //execute a query
          System.out.println("sql " + sql);
             stmt.executeUpdate(sql);
